@@ -4,6 +4,8 @@ public class EnemyHealth : MonoBehaviour
 {
     public float maxHealth = 100f;
     private float currentHealth;
+    
+    
 
     void Start()
     {

@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     private Vector3 lastKnowPos;
     public NavMeshAgent Agent { get => agent; }
     public GameObject Player { get => player; }
+    
     public Vector3 LastKnowPos { get => lastKnowPos; set => lastKnowPos = value; }
 
     public Path path;
@@ -35,12 +36,15 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         stateMachine.Initialise();
         player = GameObject.FindGameObjectWithTag("Player");
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+
         CanSeePlayer();
+        Debug.Log(CanSeePlayer());
         currentState = stateMachine.activeState.ToString();
         debugsphere.transform.position = lastKnowPos;
     }
@@ -51,10 +55,11 @@ public class Enemy : MonoBehaviour
             if (Vector3.Distance(transform.position, player.transform.position) < sightDistance)
             {
                 Vector3 targetDirection = player.transform.position - transform.position - (Vector3.up * eyeHeight);
+                Vector3 finalTarget = new Vector3(targetDirection.x,targetDirection.y  + 1f, targetDirection.z);
                 float angleToPlayer = Vector3.Angle(targetDirection, transform.forward);
                 if (angleToPlayer >= -fieldOfView && angleToPlayer <= fieldOfView)
                 {
-                    Ray ray = new Ray(transform.position + (Vector3.up * eyeHeight), targetDirection);
+                    Ray ray = new Ray(transform.position + (Vector3.up * eyeHeight), finalTarget);
                     RaycastHit hitInfo = new RaycastHit();
                     if (Physics.Raycast(ray, out hitInfo, sightDistance))
                     {

@@ -13,10 +13,12 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
+        //Añadimos un offset para que vaya al pecho del jugador.
+        Vector3 target = new Vector3(player.position.x, player.position.y + 1f, player.position.z);
         if (canMove && player != null)
         {
             // Mueve el objeto hacia el jugador
-            transform.position = Vector3.MoveTowards(transform.position, player.position, movementSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, target, movementSpeed * Time.deltaTime);
         }
     }
 

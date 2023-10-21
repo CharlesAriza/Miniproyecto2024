@@ -22,10 +22,11 @@ public class AttackState : BaseState
     {
         if (enemy.CanSeePlayer())
         {
+            Vector3 enemyTarget = new Vector3(enemy.Player.transform.position.x, enemy.Player.transform.position.y + 1f, enemy.Player.transform.position.z);
             losePlayerTimer = 0;
             moveTimer += Time.deltaTime;
             shotTimer += Time.deltaTime;
-            enemy.transform.LookAt(enemy.Player.transform);
+            enemy.transform.LookAt(enemyTarget);
             if (shotTimer > enemy.fireRate)
             {
                 Shoot();
@@ -51,7 +52,8 @@ public class AttackState : BaseState
         Transform gunbarrel = enemy.gunBarrel;
         GameObject bullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet") as GameObject, gunbarrel.position, enemy.transform.rotation);
         Vector3 shootDirection = (enemy.Player.transform.position - gunbarrel.transform.position).normalized;
-        bullet.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(Random.Range(-2f, 2f), Vector3.up) * shootDirection * 40;
+        Vector3 shootTarget = new Vector3(shootDirection.x, shootDirection.y + 0.15f, shootDirection.z);
+        bullet.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(Random.Range(-2f, 2f), Vector3.up) * shootTarget * 40;
         shotTimer = 0;
         Debug.Log("Shoot");
     }

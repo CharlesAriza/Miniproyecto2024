@@ -8,11 +8,12 @@ TagManager:
   - Enemy
   - Trap
   - Health
+  - EnemyRayCastHit
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - 

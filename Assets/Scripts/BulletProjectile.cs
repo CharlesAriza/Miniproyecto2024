@@ -6,6 +6,8 @@ public class BulletProjectile : MonoBehaviour
 {
     private Rigidbody bulletRigidbody;
     public float bulletDamage = 10f; // Daño de la bala
+    [SerializeField] GameObject hitTrue; 
+   
 
     private void Awake()
     {
@@ -30,9 +32,10 @@ public class BulletProjectile : MonoBehaviour
             {
                 // Causa daño al enemigo utilizando el valor de bulletDamage
                 enemyHealth.TakeDamage(bulletDamage);
-
+                Instantiate(hitTrue, transform);
             }
         }
+        
 
         // Destruye la bala
         Destroy(gameObject);
