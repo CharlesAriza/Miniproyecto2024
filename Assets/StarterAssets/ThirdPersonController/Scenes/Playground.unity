@@ -3218,7 +3218,7 @@ PrefabInstance:
     - target: {fileID: 4753949027609256973, guid: f789e01ab577efc459c7769652b8ec3e,
         type: 3}
       propertyPath: eyeHeight
-      value: 1.5
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 4753949027609256973, guid: f789e01ab577efc459c7769652b8ec3e,
         type: 3}
