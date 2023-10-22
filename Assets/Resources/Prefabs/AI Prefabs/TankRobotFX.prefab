@@ -61,7 +61,7 @@ PrefabInstance:
     - target: {fileID: 926647749953078331, guid: f789e01ab577efc459c7769652b8ec3e,
         type: 3}
       propertyPath: m_Name
-      value: TankRobot Variant
+      value: TankRobotFX
       objectReference: {fileID: 0}
     - target: {fileID: 4753949027609256973, guid: f789e01ab577efc459c7769652b8ec3e,
         type: 3}
@@ -101,10 +101,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3007162066010143694}
-    - targetCorrespondingSourceObject: {fileID: 926647749953078331, guid: f789e01ab577efc459c7769652b8ec3e,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8314857583232741191}
   m_SourcePrefab: {fileID: 100100000, guid: f789e01ab577efc459c7769652b8ec3e, type: 3}
 --- !u!1 &5761718728400337159 stripped
 GameObject:
@@ -146,17 +142,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
---- !u!114 &8314857583232741191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5761718728400337159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3d6c6788ec98924b840f402e7e8ce19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vfxPrefab: {fileID: 725748389856807714, guid: 2ef7682cfddf5cd478fc77651d1ece70,
-    type: 3}
+  deathVFXPrefab: {fileID: 0}

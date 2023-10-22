@@ -46,6 +46,13 @@ public class ThirdPersonShooterController : MonoBehaviour
             Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
 
             transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
+            //Ponemos el starterAssetsInput.shoot dentro del aim para que no se pueda disparar si no se esta apuntando.
+            if (starterAssetsInputs.shoot)
+            {
+                Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
+                Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+                starterAssetsInputs.shoot = false;
+            }
         }
 
       
@@ -58,12 +65,12 @@ public class ThirdPersonShooterController : MonoBehaviour
         }
       
 
-        if (starterAssetsInputs.shoot)
+        /*if (starterAssetsInputs.shoot)
         {
             Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
             Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir,Vector3.up));
             starterAssetsInputs.shoot = false;
-        }
+        }*/
 
     }
 }

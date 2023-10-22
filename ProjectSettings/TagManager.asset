@@ -9,6 +9,7 @@ TagManager:
   - Trap
   - Health
   - EnemyRayCastHit
+  - Killwall
   layers:
   - Default
   - TransparentFX
