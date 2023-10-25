@@ -11,7 +11,6 @@ TagManager:
   - EnemyRayCastHit
   - Killwall
   - Bullets
-  - Checkpoint
   layers:
   - Default
   - TransparentFX

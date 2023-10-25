@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 
 {
-
+    public CharacterController characterController; // Agrega una referencia al CharacterController
+    public Transform checkpoint;
     private float health;
     private float lerpTimer;
     [Header("Health Bar")]
@@ -81,11 +83,24 @@ public class PlayerHealth : MonoBehaviour
         lerpTimer = 0f;
         durationTimer = 0;
         overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 1);
+
+        if (health <= 0)
+        {
+            // Teletransporta al jugador al checkpoint
+            TeleportToCheckpoint();
+        }
     }
     public void RestoreHealth(float healAmount)
     {
         health += healAmount;
         lerpTimer = 0f;
+
+        if (health > 0)
+        {
+            // Si la salud se restaura y es mayor que 0, no teletransportamos.
+            return;
+        }
+        TeleportToCheckpoint();
     }
     void OnTriggerEnter(Collider other)
     {
@@ -105,6 +120,27 @@ public class PlayerHealth : MonoBehaviour
         {
             TakeDamage(100f);
             Destroy(other.gameObject);
+        }
+    }
+    private void TeleportToCheckpoint()
+    {
+        if (checkpoint != null)
+        {
+            // Desactiva el CharacterController temporalmente
+            characterController.enabled = false;
+
+            // Establece la posición del jugador en la del checkpoint
+            transform.position = checkpoint.position;
+
+            // Vuelve a activar el CharacterController
+            characterController.enabled = true;
+
+            // Restaura la salud del jugador al máximo (si deseas)
+            health = maxHealth;
+        }
+        else
+        {
+            Debug.LogError("El checkpoint no está asignado en el script del jugador.");
         }
     }
 
