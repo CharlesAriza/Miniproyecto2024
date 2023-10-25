@@ -104,6 +104,21 @@ public class ThirdPersonShooterController : MonoBehaviour
         if (other.CompareTag("Bullets"))
         {
             // Comprueba si el jugador ha entrado en contacto con un objeto con el tag "Bullets".
+            // A continuación, agrega balas hasta llegar a 100 o el máximo que permitas.
+            int bulletsToAdd = Mathf.Min(100 - currentBullets, 10); // Calcula la cantidad de balas a agregar sin superar 100.
+            currentBullets += bulletsToAdd;
+            currentbulletsText.text = currentBullets.ToString();
+
+            // Desactiva el objeto recolector de balas para que no pueda ser recogido nuevamente.
+            other.gameObject.SetActive(false);
+        }
+    }
+
+    /*private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bullets"))
+        {
+            // Comprueba si el jugador ha entrado en contacto con un objeto con el tag "Bullets".
             // A continuación, agrega 25 balas a la cantidad actual de balas del jugador.
             currentBullets += 10;
             currentbulletsText.text = currentBullets.ToString();
@@ -111,6 +126,6 @@ public class ThirdPersonShooterController : MonoBehaviour
             // Desactiva el objeto recolector de balas para que no pueda ser recogido nuevamente.
             other.gameObject.SetActive(false);
         }
-    }
+    }*/
 
 }

@@ -119,7 +119,6 @@ public class PlayerHealth : MonoBehaviour
         if (other.CompareTag("Killwall"))
         {
             TakeDamage(100f);
-            Destroy(other.gameObject);
         }
     }
     private void TeleportToCheckpoint()

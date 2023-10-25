@@ -22,7 +22,7 @@ public class BulletProjectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Verifica si el objeto con el que colisionamos es un enemigo
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Trap"))
         {
             // Intenta obtener el componente EnemyHealth
             EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
