@@ -18,12 +18,31 @@ public class ThirdPersonShooterController : MonoBehaviour
     private StarterAssetsInputs starterAssetsInputs;
     private Animator animator;
 
+    [Header("Bullet Configuration")]
+    [SerializeField] int maxBullet = 100;
+    [SerializeField] int currentBullets;
+    [SerializeField] TMPro.TextMeshProUGUI currentbulletsText;
+
+
     private void Awake()
     {
         thirdPersonController = GetComponent<ThirdPersonController>();
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
-        animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();      
     }
+    private void Start()
+    {
+        currentBullets = (int)((float)maxBullet / 2f);
+        currentbulletsText.text = currentBullets.ToString();
+    }
+
+    public void AddBullets(int bulletsToadd)
+    {
+        currentBullets += bulletsToadd;
+        currentbulletsText.text = currentBullets.ToString();
+    }
+
+
     private void Update()
     {
         Vector3 mouseWorldPosition = Vector3.zero;
@@ -35,7 +54,8 @@ public class ThirdPersonShooterController : MonoBehaviour
             mouseWorldPosition = raycastHit.point;
         }
         if (starterAssetsInputs.aim)
-        {
+        {       
+
             aimVirtualCamera.gameObject.SetActive(true);
             thirdPersonController.SetSensitivity(aimSensitivity);
             thirdPersonController.SetRotateOnMove(false);
@@ -47,8 +67,12 @@ public class ThirdPersonShooterController : MonoBehaviour
 
             transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
             //Ponemos el starterAssetsInput.shoot dentro del aim para que no se pueda disparar si no se esta apuntando.
-            if (starterAssetsInputs.shoot)
+            if (starterAssetsInputs.shoot &&  currentBullets > 0)
             {
+                currentBullets--;
+                currentbulletsText.text = currentBullets.ToString();
+
+
                 Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
                 Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
                 starterAssetsInputs.shoot = false;
