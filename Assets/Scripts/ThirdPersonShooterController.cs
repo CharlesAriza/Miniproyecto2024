@@ -28,7 +28,7 @@ public class ThirdPersonShooterController : MonoBehaviour
     {
         thirdPersonController = GetComponent<ThirdPersonController>();
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
-        animator = GetComponent<Animator>();      
+        animator = GetComponent<Animator>();
     }
     private void Start()
     {
@@ -40,7 +40,9 @@ public class ThirdPersonShooterController : MonoBehaviour
     {
         currentBullets += bulletsToadd;
         currentbulletsText.text = currentBullets.ToString();
+
     }
+
 
 
     private void Update()
@@ -54,7 +56,7 @@ public class ThirdPersonShooterController : MonoBehaviour
             mouseWorldPosition = raycastHit.point;
         }
         if (starterAssetsInputs.aim)
-        {       
+        {
 
             aimVirtualCamera.gameObject.SetActive(true);
             thirdPersonController.SetSensitivity(aimSensitivity);
@@ -67,7 +69,7 @@ public class ThirdPersonShooterController : MonoBehaviour
 
             transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
             //Ponemos el starterAssetsInput.shoot dentro del aim para que no se pueda disparar si no se esta apuntando.
-            if (starterAssetsInputs.shoot &&  currentBullets > 0)
+            if (starterAssetsInputs.shoot && currentBullets > 0)
             {
                 currentBullets--;
                 currentbulletsText.text = currentBullets.ToString();
@@ -79,7 +81,7 @@ public class ThirdPersonShooterController : MonoBehaviour
             }
         }
 
-      
+
         else
         {
             aimVirtualCamera.gameObject.SetActive(false);
@@ -87,7 +89,7 @@ public class ThirdPersonShooterController : MonoBehaviour
             thirdPersonController.SetRotateOnMove(true);
             animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
         }
-      
+
 
         /*if (starterAssetsInputs.shoot)
         {
@@ -97,5 +99,18 @@ public class ThirdPersonShooterController : MonoBehaviour
         }*/
 
     }
-}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bullets"))
+        {
+            // Comprueba si el jugador ha entrado en contacto con un objeto con el tag "Bullets".
+            // A continuación, agrega 25 balas a la cantidad actual de balas del jugador.
+            currentBullets += 10;
+            currentbulletsText.text = currentBullets.ToString();
 
+            // Desactiva el objeto recolector de balas para que no pueda ser recogido nuevamente.
+            other.gameObject.SetActive(false);
+        }
+    }
+
+}

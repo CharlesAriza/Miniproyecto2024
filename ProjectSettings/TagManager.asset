@@ -10,6 +10,8 @@ TagManager:
   - Health
   - EnemyRayCastHit
   - Killwall
+  - Bullets
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 
@@ -30,21 +29,10 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Reinciar la escena si la vida del jugador es menor a =0.
-        if (health <= 0)
-        {
-            StartCoroutine(RestartSceneAfterDelay(0.5f)); // Reiniciar después de 2 segundos (ajusta esto a tu preferencia).
-        }
+
         health = Mathf.Clamp(health, 0, maxHealth);
         UpdateHealthUI();
-        //if (Input.GetKeyDown(KeyCode.X))
-        //{
-        //    TakeDamage(Random.Range(5, 10));
-        //}
-        //if (Input.GetKeyDown(KeyCode.Z))
-        //{
-        //    RestoreHealth(Random.Range(5, 10));
-        //}
+
         if (overlay.color.a > 0)
         {
             if (health < 30)
@@ -58,7 +46,7 @@ public class PlayerHealth : MonoBehaviour
                 overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, tempAlpha);
             }
         }
-      
+
 
     }
     public void UpdateHealthUI()
@@ -86,7 +74,7 @@ public class PlayerHealth : MonoBehaviour
             frontHealthBar.fillAmount = Mathf.Lerp(fillF, backHealthBar.fillAmount, percentComplete);
         }
     }
-   
+
     public void TakeDamage(float damage)
     {
         health -= damage;
@@ -118,13 +106,6 @@ public class PlayerHealth : MonoBehaviour
             TakeDamage(100f);
             Destroy(other.gameObject);
         }
-    }
-
-    //Para reinciar la escena.
-    IEnumerator RestartSceneAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }
