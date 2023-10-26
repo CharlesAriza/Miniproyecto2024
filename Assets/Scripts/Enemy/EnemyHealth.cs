@@ -30,6 +30,6 @@ public class EnemyHealth : MonoBehaviour
             Instantiate(deathVFXPrefab, transform.position, transform.rotation);
         }
         // Realiza cualquier acción que desees cuando el enemigo muera, como reproducir una animación o efectos de partículas.
-        Destroy(gameObject); // Destruye el objeto enemigo.
+        gameObject.SetActive(false); // Destruye el objeto enemigo.
     }
 }

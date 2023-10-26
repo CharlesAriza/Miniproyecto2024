@@ -94,13 +94,6 @@ public class PlayerHealth : MonoBehaviour
     {
         health += healAmount;
         lerpTimer = 0f;
-
-        if (health > 0)
-        {
-            // Si la salud se restaura y es mayor que 0, no teletransportamos.
-            return;
-        }
-        TeleportToCheckpoint();
     }
     void OnTriggerEnter(Collider other)
     {
@@ -123,24 +116,24 @@ public class PlayerHealth : MonoBehaviour
     }
     private void TeleportToCheckpoint()
     {
-        if (checkpoint != null)
+       if (checkpoint != null)
         {
-            // Desactiva el CharacterController temporalmente
+           // Desactiva el CharacterController temporalmente
             characterController.enabled = false;
 
-            // Establece la posición del jugador en la del checkpoint
+           // Establece la posición del jugador en la del checkpoint
             transform.position = checkpoint.position;
 
-            // Vuelve a activar el CharacterController
+           // Vuelve a activar el CharacterController
             characterController.enabled = true;
 
-            // Restaura la salud del jugador al máximo (si deseas)
+           // Restaura la salud del jugador al máximo (si deseas)
             health = maxHealth;
         }
         else
         {
-            Debug.LogError("El checkpoint no está asignado en el script del jugador.");
-        }
+           Debug.LogError("El checkpoint no está asignado en el script del jugador.");
+       }
     }
 
 }
