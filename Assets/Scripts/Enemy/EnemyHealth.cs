@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
@@ -31,5 +32,10 @@ public class EnemyHealth : MonoBehaviour
         }
         // Realiza cualquier acción que desees cuando el enemigo muera, como reproducir una animación o efectos de partículas.
         gameObject.SetActive(false); // Destruye el objeto enemigo.
+    }
+
+    internal void ResetEnemy()
+    {
+        throw new NotImplementedException();
     }
 }
