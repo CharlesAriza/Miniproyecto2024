@@ -117,7 +117,6 @@ GameObject:
   - component: {fileID: 4962055944675766401}
   - component: {fileID: 3402103376038584908}
   - component: {fileID: 8326385628143252181}
-  - component: {fileID: 6906714624672619341}
   m_Layer: 0
   m_Name: PfBulletProjectile
   m_TagString: Untagged
@@ -201,18 +200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f708b6eabc461b41b85bee1bc42a84f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletDamage: 10
---- !u!114 &6906714624672619341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 932388463066049055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3d6c6788ec98924b840f402e7e8ce19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   vfxPrefab: {fileID: 4021103657954561961, guid: a9e2b3048704025409fdd17d01752553,
     type: 3}
+  bulletDamage: 10

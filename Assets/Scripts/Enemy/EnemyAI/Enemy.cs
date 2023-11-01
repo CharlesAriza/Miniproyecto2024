@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     public Transform gunBarrel;
     [Range(0.1f, 10)]
     public float fireRate;
-    public float health;
+    //public float health;
 
 
     [SerializeField]
@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
     {
 
         CanSeePlayer();
-        Debug.Log(CanSeePlayer());
+        //Debug.Log(CanSeePlayer());
         currentState = stateMachine.activeState.ToString();
         debugsphere.transform.position = lastKnowPos;
     }
@@ -75,14 +75,14 @@ public class Enemy : MonoBehaviour
         return false;
 
     }
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
+    //public void TakeDamage(int damage)
+    //{
+    //    health -= damage;
 
-        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
-    }
-    private void DestroyEnemy()
-    {
-        Destroy(gameObject);
-    }
+    //    if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+    //}
+    //private void DestroyEnemy()
+    //{
+    //    Destroy(gameObject);
+    //}
 }

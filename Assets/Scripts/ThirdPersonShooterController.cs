@@ -32,7 +32,8 @@ public class ThirdPersonShooterController : MonoBehaviour
     }
     private void Start()
     {
-        currentBullets = (int)((float)maxBullet / 2f);
+        //Dividimos el maximo de balas entre en float para saber con cuantas empezaremos.
+        currentBullets = (int)((float)maxBullet / 4f);
         currentbulletsText.text = currentBullets.ToString();
     }
 

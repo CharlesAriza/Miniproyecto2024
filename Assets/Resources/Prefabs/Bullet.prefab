@@ -120,6 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904f711be779e1d4f897874f3a6f0ad0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vfxPrefab: {fileID: 8194992990867289339, guid: 4ea25162e829d0e49962b92f2eb7c3aa,
+    type: 3}
 --- !u!54 &-3998724403152017062
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -159,5 +161,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d6c6788ec98924b840f402e7e8ce19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vfxPrefab: {fileID: 8194992990867289339, guid: 4ea25162e829d0e49962b92f2eb7c3aa,
-    type: 3}

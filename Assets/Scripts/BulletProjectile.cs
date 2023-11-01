@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BulletProjectile : MonoBehaviour
 {
+    public GameObject vfxPrefab; // Asigna el VFX en el inspector
     private Rigidbody bulletRigidbody;
     public float bulletDamage = 10f; // Daño de la bala
 
@@ -31,11 +33,15 @@ public class BulletProjectile : MonoBehaviour
             {
                 // Causa daño al enemigo utilizando el valor de bulletDamage
                 enemyHealth.TakeDamage(bulletDamage);
-            }
+            }        
+            
         }
 
-
-        // Destruye la bala
+        //Instanciamos el VFX cuando toca con un collider.
+        if (vfxPrefab != null)
+        {
+            Instantiate(vfxPrefab, transform.position, transform.rotation);
+        }
         Destroy(gameObject);
     }
 }
