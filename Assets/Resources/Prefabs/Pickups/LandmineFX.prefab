@@ -86,7 +86,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c53cf11845b740b439e144b4b3bdaa81,
         type: 3}
       propertyPath: m_Name
-      value: Landmine 1 1
+      value: LandmineFX
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c53cf11845b740b439e144b4b3bdaa81,
         type: 3}
@@ -164,6 +164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b384e3d61ac5445479177251a0c9763b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 20
   deathVFXPrefab: {fileID: 4593184484909914552, guid: a3be6544d4a729b4abc933baacc768e6,
     type: 3}
