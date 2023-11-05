@@ -11,6 +11,8 @@ TagManager:
   - EnemyRayCastHit
   - Killwall
   - Bullets
+  - FxTemporaire
+  - InteractableObject
   layers:
   - Default
   - TransparentFX
