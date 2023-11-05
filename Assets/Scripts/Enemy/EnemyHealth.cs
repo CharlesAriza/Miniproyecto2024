@@ -23,7 +23,6 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-
     void Die()
     {
         if (deathVFXPrefab != null)
