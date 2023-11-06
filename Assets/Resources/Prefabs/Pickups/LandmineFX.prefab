@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9254242831d38ac42973ce8bee3bbd29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vfxPrefab: {fileID: 4593184484909914552, guid: a3be6544d4a729b4abc933baacc768e6,
+  vfxPrefab: {fileID: 2433282508537954060, guid: 0bf65ee63a076a34f858fa4b88ffdfc4,
     type: 3}
   vfxDuration: 2
 --- !u!114 &7769198820357785586
@@ -165,5 +165,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
-  deathVFXPrefab: {fileID: 4593184484909914552, guid: a3be6544d4a729b4abc933baacc768e6,
+  deathVFXPrefab: {fileID: 2433282508537954060, guid: 0bf65ee63a076a34f858fa4b88ffdfc4,
     type: 3}
