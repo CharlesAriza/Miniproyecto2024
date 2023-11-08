@@ -13,6 +13,7 @@ TagManager:
   - Bullets
   - FxTemporaire
   - InteractableObject
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
