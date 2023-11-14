@@ -4,8 +4,10 @@ using UnityEngine;
 using Cinemachine;
 using StarterAssets;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
+using System;
 
-public class ThirdPersonShooterController : MonoBehaviour
+public class ThirdPersonShooterController : NetworkBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera aimVirtualCamera;
     [SerializeField] private float normalSensitivity;
@@ -23,6 +25,7 @@ public class ThirdPersonShooterController : MonoBehaviour
     [SerializeField] int currentBullets;
     [SerializeField] TMPro.TextMeshProUGUI currentbulletsText;
 
+    [SerializeField] int initialBullets = 2;
 
     private void Awake()
     {
@@ -30,24 +33,17 @@ public class ThirdPersonShooterController : MonoBehaviour
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         animator = GetComponent<Animator>();
     }
+
     private void Start()
     {
-        //Dividimos el maximo de balas entre en float para saber con cuantas empezaremos.
-        currentBullets = (int)((float)maxBullet / 4f);
         currentbulletsText.text = currentBullets.ToString();
     }
-
-    public void AddBullets(int bulletsToadd)
-    {
-        currentBullets += bulletsToadd;
-        currentbulletsText.text = currentBullets.ToString();
-
-    }
-
 
 
     private void Update()
     {
+        if (!IsOwner) { return; }
+
         Vector3 mouseWorldPosition = Vector3.zero;
         Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
@@ -58,7 +54,6 @@ public class ThirdPersonShooterController : MonoBehaviour
         }
         if (starterAssetsInputs.aim)
         {
-
             aimVirtualCamera.gameObject.SetActive(true);
             thirdPersonController.SetSensitivity(aimSensitivity);
             thirdPersonController.SetRotateOnMove(false);
@@ -114,6 +109,13 @@ public class ThirdPersonShooterController : MonoBehaviour
             other.gameObject.SetActive(false);
         }
     }
+    public void AddBullets(int bulletsToadd)
+    {
+        currentBullets += bulletsToadd;
+        currentbulletsText.text = currentBullets.ToString();
+
+    }
+
 
     /*private void OnTriggerEnter(Collider other)
     {

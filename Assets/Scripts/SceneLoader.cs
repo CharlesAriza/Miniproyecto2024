@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,7 +35,6 @@ public class SceneLoader : MonoBehaviour
     private void Start()
     {
         LoadScenes(new string[] { mainMenuScene }, true);
-
     }
 
     public void LoadScenes(string[] scenesNames, bool removeOtherScenes)
@@ -42,7 +42,7 @@ public class SceneLoader : MonoBehaviour
         //Load All wanted Scene.
         for (int i = 0; i < scenesNames.Length; i++)
         {
-            LoadScene(scenesNames[i]);
+          LoadScene(scenesNames[i]);
         }
 
         if (removeOtherScenes)
@@ -59,7 +59,14 @@ public class SceneLoader : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            if (NetworkManager.Singleton == null)
+            {
+                SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            }
+            else
+            {
+              NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+            }
         }
     }
 
@@ -67,7 +74,7 @@ public class SceneLoader : MonoBehaviour
     {
         yield return null; //Needs at least 1 frame to ensure that the scene is loaded in the editor.
 
-        List<string> unwantedScenes = new List<string>();
+        List<Scene> unwantedScenes = new List<Scene>();
 
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
@@ -82,7 +89,7 @@ public class SceneLoader : MonoBehaviour
             }
             if (removeScene)
             {
-                unwantedScenes.Add(SceneManager.GetSceneAt(i).name);
+                unwantedScenes.Add(SceneManager.GetSceneAt(i));
                 removeScene = false;
             }
         }
@@ -91,8 +98,18 @@ public class SceneLoader : MonoBehaviour
         {
             if (SceneManager.GetSceneAt(i).name != staticScene)
             {
+                if (NetworkManager.Singleton == null)
+                {
+                    SceneManager.UnloadSceneAsync(unwantedScenes[i]);
+                }
+                else
+                {
+                    NetworkManager.Singleton.SceneManager.UnloadScene(unwantedScenes[i]);
+                }
+
+
                 //The static scene will be ignored always, not possible to unload it. -> Debug.LogFormat("Removing Scene <color=orange>" + SceneManager.GetSceneAt(i).name + "</color>");
-                SceneManager.UnloadSceneAsync(unwantedScenes[i]);
+                
             }
         }
     }

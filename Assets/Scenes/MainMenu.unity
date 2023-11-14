@@ -4809,10 +4809,10 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1779124834}
-    PlayerPrefab: {fileID: 2978140504301946412, guid: b13cb87d19891c648a57649fc3a1ea5c,
-      type: 3}
+    PlayerPrefab: {fileID: 0}
     Prefabs:
-      NetworkPrefabsLists: []
+      NetworkPrefabsLists:
+      - {fileID: 11400000, guid: 59284eedef5907a448b0504a37ece038, type: 2}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
