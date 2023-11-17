@@ -8,11 +8,11 @@ public class SceneLoader : MonoBehaviour
 {
     private static SceneLoader instance;
     public static SceneLoader Instance => instance;
-
     [SerializeField] private string staticScene = "StaticScene";
     [SerializeField] private string mainMenuScene = "MainMenuScene";
     [SerializeField] private string gameScene = "GameScene";
-
+    [SerializeField] private string lobbyScene = "Lobby";
+    public string LobbyScene => lobbyScene;
 
     public string MainMenuScene => mainMenuScene;
     public string GameScene => gameScene;
@@ -34,24 +34,24 @@ public class SceneLoader : MonoBehaviour
 
     private void Start()
     {
-        LoadScenes(new string[] { mainMenuScene }, true);
+        LoadScenes(new string[] { mainMenuScene }, true,false);
     }
 
-    public void LoadScenes(string[] scenesNames, bool removeOtherScenes)
+    public void LoadScenes(string[] scenesNames, bool removeOtherScenes, bool onlineLoad)
     {
         //Load All wanted Scene.
         for (int i = 0; i < scenesNames.Length; i++)
         {
-          LoadScene(scenesNames[i]);
+          LoadScene(scenesNames[i], onlineLoad);
         }
 
         if (removeOtherScenes)
         {
-            StartCoroutine(RemoveUnwantedScenes(scenesNames));
+            StartCoroutine(RemoveUnwantedScenes(scenesNames, onlineLoad));
         }
     }
 
-    private void LoadScene(string sceneName)
+    private void LoadScene(string sceneName, bool onlineLoad)
     {
         if (IsSceneLoaded(sceneName))
         {
@@ -59,18 +59,19 @@ public class SceneLoader : MonoBehaviour
         }
         else
         {
-            if (NetworkManager.Singleton == null)
+            if (onlineLoad)
             {
-                SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+                NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+              
             }
             else
             {
-              NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+                SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             }
         }
     }
 
-    private IEnumerator RemoveUnwantedScenes(string[] wantedScenes)
+    private IEnumerator RemoveUnwantedScenes(string[] wantedScenes, bool onlineLoad)
     {
         yield return null; //Needs at least 1 frame to ensure that the scene is loaded in the editor.
 
@@ -98,18 +99,19 @@ public class SceneLoader : MonoBehaviour
         {
             if (SceneManager.GetSceneAt(i).name != staticScene)
             {
-                if (NetworkManager.Singleton == null)
-                {
-                    SceneManager.UnloadSceneAsync(unwantedScenes[i]);
-                }
-                else
+                if (onlineLoad)
                 {
                     NetworkManager.Singleton.SceneManager.UnloadScene(unwantedScenes[i]);
                 }
+                else
+                {
+                    SceneManager.UnloadSceneAsync(unwantedScenes[i]);
+                }
+
 
 
                 //The static scene will be ignored always, not possible to unload it. -> Debug.LogFormat("Removing Scene <color=orange>" + SceneManager.GetSceneAt(i).name + "</color>");
-                
+
             }
         }
     }
@@ -125,5 +127,27 @@ public class SceneLoader : MonoBehaviour
         }
         return false;
     }
+    //[ContextMenu("Descargar MainMenu")]
+    //public void UnloadMainMenu()
+    //{
+    //    if (NetworkManager.Singleton != null)
+    //    { NetworkManager.Singleton.SceneManager.UnloadScene(GetLoadedSceneWithName(MainMenuScene)); }
+    //    else
+    //    {
+    //        scene
+    //    }
+    //}
+    //public Scene GetLoadedSceneWithName(string sceneName)
+    //{
+    //    for (int i = 0; i < SceneManager.sceneCount; i++)
+    //    {
+    //        if (SceneManager.GetSceneAt(i).name == sceneName)
+    //        {
+    //            return SceneManager.GetSceneAt(i);
+    //        }
+    //    }
+    //    Debug.Log("Scene not found, returning first active Scene");
+    //    return SceneManager.GetSceneAt(0);
+    //}
 }
 

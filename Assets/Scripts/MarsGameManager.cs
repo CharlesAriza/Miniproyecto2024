@@ -5,24 +5,24 @@ using UnityEngine;
 
 public class MarsGameManager : MonoBehaviour
 {
-    public List<EnemyHealth> enemies;
+    //public List<EnemyHealth> enemies;
 
-    void Start()
-    {
-        enemies = FindObjectsOfType<EnemyHealth>().ToList();
-    }
+    //void Start()
+    //{
+    //    enemies = FindObjectsOfType<EnemyHealth>().ToList();
+    //}
 
-    public void AddNewEnemy()
-    { 
+    //public void AddNewEnemy()
+    //{ 
     
-    }
+    //}
 
 
-    void ResetGame()
-    {
-        for (int i = 0; i < enemies.Count; i++)
-        {
-            enemies[i].ResetEnemy();
-        }
-    }
+    //void ResetGame()
+    //{
+    //    for (int i = 0; i < enemies.Count; i++)
+    //    {
+    //        enemies[i].ResetEnemy();
+    //    }
+    //}
 }

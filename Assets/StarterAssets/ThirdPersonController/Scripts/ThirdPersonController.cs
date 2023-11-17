@@ -127,6 +127,7 @@ namespace StarterAssets
 
         private void Start()
         {
+           
             // get a reference to our main camera
             if (_mainCamera == null)
             {

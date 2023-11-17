@@ -24,6 +24,10 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        checkpoint = PlayerHelperInicializator.Singleton.checkpoint.GetComponent<Transform>();
+        frontHealthBar = PlayerHelperInicializator.Singleton.frontHealthBar.GetComponent<Image>();
+        backHealthBar = PlayerHelperInicializator.Singleton.backHealthBar.GetComponent<Image> ();
+        overlay = PlayerHelperInicializator.Singleton.overlay.GetComponent<Image>();
         health = maxHealth;
         overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 0);
     }

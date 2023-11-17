@@ -25,6 +25,12 @@ public class PlayerNetworkCleanStart : NetworkBehaviour
             if (thirdPersonShooter != null) Destroy(thirdPersonShooter);
             if (characterController != null) Destroy(characterController);
         }
+
+        else
+        {
+            PlayerHelperInicializator.Singleton.playerCamera.Follow = transform.GetComponentInChildren<PlayerCameraRoot>().transform;
+            PlayerHelperInicializator.Singleton.playerAimCamera.Follow = transform.GetComponentInChildren<PlayerCameraRoot>().transform;
+        }
     }
 
 

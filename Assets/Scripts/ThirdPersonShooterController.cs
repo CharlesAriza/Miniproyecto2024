@@ -6,6 +6,7 @@ using StarterAssets;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
 using System;
+using TMPro;
 
 public class ThirdPersonShooterController : NetworkBehaviour
 {
@@ -23,7 +24,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
     [Header("Bullet Configuration")]
     [SerializeField] int maxBullet = 100;
     [SerializeField] int currentBullets;
-    [SerializeField] TMPro.TextMeshProUGUI currentbulletsText;
+    [SerializeField] TMPro.TextMeshProUGUI currentBulletsText;
 
     [SerializeField] int initialBullets = 2;
 
@@ -36,7 +37,10 @@ public class ThirdPersonShooterController : NetworkBehaviour
 
     private void Start()
     {
-        currentbulletsText.text = currentBullets.ToString();
+        currentBulletsText = PlayerHelperInicializator.Singleton.currentBullets.GetComponent<TextMeshProUGUI>();
+        debugTransform = PlayerHelperInicializator.Singleton.PointSphere.transform;
+        aimVirtualCamera = PlayerHelperInicializator.Singleton.aimCamera.GetComponent<Cinemachine.CinemachineVirtualCamera>();
+        currentBulletsText.text = currentBullets.ToString();
     }
 
 
@@ -68,7 +72,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
             if (starterAssetsInputs.shoot && currentBullets > 0)
             {
                 currentBullets--;
-                currentbulletsText.text = currentBullets.ToString();
+                currentBulletsText.text = currentBullets.ToString();
 
 
                 Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
@@ -103,7 +107,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
             // A continuación, agrega balas hasta llegar a 100 o el máximo que permitas.
             int bulletsToAdd = Mathf.Min(100 - currentBullets, 10); // Calcula la cantidad de balas a agregar sin superar 100.
             currentBullets += bulletsToAdd;
-            currentbulletsText.text = currentBullets.ToString();
+            currentBulletsText.text = currentBullets.ToString();
 
             // Desactiva el objeto recolector de balas para que no pueda ser recogido nuevamente.
             other.gameObject.SetActive(false);
@@ -112,7 +116,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
     public void AddBullets(int bulletsToadd)
     {
         currentBullets += bulletsToadd;
-        currentbulletsText.text = currentBullets.ToString();
+        currentBulletsText.text = currentBullets.ToString();
 
     }
 

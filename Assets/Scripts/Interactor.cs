@@ -14,6 +14,13 @@ public class Interactor : MonoBehaviour
     public TextMeshProUGUI interactText; // Referencia al objeto de texto en la UI
     private bool canInteract = false;
 
+
+    private void Start()
+    {
+        InteracterSource = PlayerHelperInicializator.Singleton.GetComponent<UnityEngine.Transform>();
+        interactText =  PlayerHelperInicializator.Singleton.GetComponent<TextMeshProUGUI>();
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && canInteract)
