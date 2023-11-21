@@ -10,6 +10,12 @@ public class GeneralNetworkEvents : MonoBehaviour
     void Start()
     {
         NetworkManager.Singleton.OnServerStarted += ServerHasStarted;
+        NetworkManager.Singleton.OnClientStarted += LocalClientConnection;
+    }
+
+    private void LocalClientConnection()
+    {
+        SceneLoader.Instance.LoadScenes(new string[] { }, true, false);
     }
 
     void OnDestroy()
@@ -20,7 +26,7 @@ public class GeneralNetworkEvents : MonoBehaviour
 
     private void ServerHasStarted()
     {
-        SceneLoader.Instance.LoadScenes(new string[] { }, true, false);
+        
         SceneLoader.Instance.LoadScenes(new string[] { SceneLoader.Instance.LobbyScene }, false, true);
         //SceneLoader.Instance.LoadScenes(new string[] { SceneLoader.Instance.GameScene }, true, true);
     }

@@ -24,6 +24,7 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Me he iniciado" + transform.name);
         checkpoint = PlayerHelperInicializator.Singleton.checkpoint.GetComponent<Transform>();
         frontHealthBar = PlayerHelperInicializator.Singleton.frontHealthBar.GetComponent<Image>();
         backHealthBar = PlayerHelperInicializator.Singleton.backHealthBar.GetComponent<Image> ();

@@ -25,17 +25,17 @@ public class PlayerInitializer : NetworkBehaviour
         }
         else
         {
-            InstantiatePlayer2ServerRPC();
+            InstantiatePlayer2ServerRPC(NetworkManager.Singleton.LocalClientId);
         }
 
     }
 
     [ServerRpc(RequireOwnership = false)]
-    void InstantiatePlayer2ServerRPC()
+    void InstantiatePlayer2ServerRPC(ulong clientID)
     {
-        Debug.Log("Instantiate Soldier");
+        Debug.Log("Instantiate Engi");
         var intantiatedGO = Instantiate(player2Prefab);
-        intantiatedGO.GetComponent<NetworkObject>().Spawn();
+        intantiatedGO.GetComponent<NetworkObject>().SpawnWithOwnership(clientID);
     }
 
 

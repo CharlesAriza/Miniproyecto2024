@@ -28,8 +28,10 @@ public class PlayerHelperInicializator : MonoBehaviour
     public CinemachineVirtualCamera playerCamera;
     public CinemachineVirtualCamera playerAimCamera;
     public GameObject bulletPrefab;
+    public spawnBulletPositionFind spawnBulletPosition;
     private void Awake()
     {
+        Debug.Log("Me he iniciadoooooooo");
         if (singleton == null)
         {
             singleton = this;
@@ -39,7 +41,7 @@ public class PlayerHelperInicializator : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-
+        spawnBulletPosition = GameObject.FindAnyObjectByType<spawnBulletPositionFind>();
         PointSphere = GameObject.FindAnyObjectByType<pointSphereFind>();
         MainCamera = GameObject.FindAnyObjectByType<MainCameraFind>();
         aimCamera = GameObject.FindAnyObjectByType<aimCameraFind>();

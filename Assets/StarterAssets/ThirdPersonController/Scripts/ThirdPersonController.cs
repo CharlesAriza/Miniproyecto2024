@@ -127,11 +127,14 @@ namespace StarterAssets
 
         private void Start()
         {
-           
+
             // get a reference to our main camera
+
+            _mainCamera = PlayerHelperInicializator.Singleton.MainCamera.gameObject;
+
             if (_mainCamera == null)
             {
-                _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                //_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
