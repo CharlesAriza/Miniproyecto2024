@@ -17,8 +17,8 @@ public class Interactor : MonoBehaviour
 
     private void Start()
     {
-        InteracterSource = PlayerHelperInicializator.Singleton.GetComponent<UnityEngine.Transform>();
-        interactText =  PlayerHelperInicializator.Singleton.GetComponent<TextMeshProUGUI>();
+        InteracterSource = PlayerHelperInicializator.Singleton.MainCamera.GetComponent<Transform>();
+        interactText = PlayerHelperInicializator.Singleton.playerInteract.GetComponent<TextMeshProUGUI>();
     }
 
     void Update()

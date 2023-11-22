@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
-public class PlayerHealth : MonoBehaviour
+using System.Globalization;
+using Unity.Netcode;
+public class PlayerHealth : NetworkBehaviour
 
 {
     public CharacterController characterController; // Agrega una referencia al CharacterController
@@ -24,61 +25,67 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Me he iniciado" + transform.name);
+        if (IsOwner)
+        {
+            Debug.Log("Me he iniciado" + transform.name);
         checkpoint = PlayerHelperInicializator.Singleton.checkpoint.GetComponent<Transform>();
         frontHealthBar = PlayerHelperInicializator.Singleton.frontHealthBar.GetComponent<Image>();
         backHealthBar = PlayerHelperInicializator.Singleton.backHealthBar.GetComponent<Image> ();
         overlay = PlayerHelperInicializator.Singleton.overlay.GetComponent<Image>();
         health = maxHealth;
         overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 0);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        health = Mathf.Clamp(health, 0, maxHealth);
-        UpdateHealthUI();
-
-        if (overlay.color.a > 0)
+        if (IsOwner)
         {
-            if (health < 30)
-                return;
+            health = Mathf.Clamp(health, 0, maxHealth);
+            UpdateHealthUI();
 
-            durationTimer += Time.deltaTime;
-            if (durationTimer > duration)
+            if (overlay.color.a > 0)
             {
-                float tempAlpha = overlay.color.a;
-                tempAlpha -= Time.deltaTime * fadeSpeed;
-                overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, tempAlpha);
+                if (health < 30)
+                    return;
+
+                durationTimer += Time.deltaTime;
+                if (durationTimer > duration)
+                {
+                    float tempAlpha = overlay.color.a;
+                    tempAlpha -= Time.deltaTime * fadeSpeed;
+                    overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, tempAlpha);
+                }
             }
         }
-
 
     }
     public void UpdateHealthUI()
     {
-        ;
-        float fillF = frontHealthBar.fillAmount;
-        float fillB = backHealthBar.fillAmount;
-        float hFraction = health / maxHealth;
-        if (fillB > hFraction)
+        if (IsOwner)
         {
-            frontHealthBar.fillAmount = hFraction;
-            backHealthBar.color = Color.red;
-            lerpTimer += Time.deltaTime;
-            float percentComplete = lerpTimer / chipSpeed;
-            percentComplete = percentComplete * percentComplete;
-            backHealthBar.fillAmount = Mathf.Lerp(fillB, hFraction, percentComplete);
-        }
-        if (fillF < hFraction)
-        {
-            backHealthBar.color = Color.green;
-            backHealthBar.fillAmount = hFraction;
-            lerpTimer += Time.deltaTime;
-            float percentComplete = lerpTimer / chipSpeed;
-            percentComplete = percentComplete * percentComplete;
-            frontHealthBar.fillAmount = Mathf.Lerp(fillF, backHealthBar.fillAmount, percentComplete);
+            float fillF = frontHealthBar.fillAmount;
+            float fillB = backHealthBar.fillAmount;
+            float hFraction = health / maxHealth;
+            if (fillB > hFraction)
+            {
+                frontHealthBar.fillAmount = hFraction;
+                backHealthBar.color = Color.red;
+                lerpTimer += Time.deltaTime;
+                float percentComplete = lerpTimer / chipSpeed;
+                percentComplete = percentComplete * percentComplete;
+                backHealthBar.fillAmount = Mathf.Lerp(fillB, hFraction, percentComplete);
+            }
+            if (fillF < hFraction)
+            {
+                backHealthBar.color = Color.green;
+                backHealthBar.fillAmount = hFraction;
+                lerpTimer += Time.deltaTime;
+                float percentComplete = lerpTimer / chipSpeed;
+                percentComplete = percentComplete * percentComplete;
+                frontHealthBar.fillAmount = Mathf.Lerp(fillF, backHealthBar.fillAmount, percentComplete);
+            }
         }
     }
 

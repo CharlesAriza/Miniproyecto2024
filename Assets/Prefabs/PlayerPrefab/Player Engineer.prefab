@@ -216,6 +216,11 @@ PrefabInstance:
       propertyPath: JumpHeight
       value: 2.9
       objectReference: {fileID: 0}
+    - target: {fileID: 6206744341646888724, guid: 4e3d059e1f3632a409e1f9a204ef2db6,
+        type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 6c46fc689faf36c4dac4cc92291c093f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7504067544331161919, guid: 4e3d059e1f3632a409e1f9a204ef2db6, type: 3}
