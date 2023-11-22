@@ -29,6 +29,7 @@ public class PlayerHelperInicializator : MonoBehaviour
     public CinemachineVirtualCamera playerAimCamera;
     public GameObject bulletPrefab;
     public spawnBulletPositionFind spawnBulletPosition;
+
     private void Awake()
     {
         Debug.Log("Me he iniciadoooooooo");
