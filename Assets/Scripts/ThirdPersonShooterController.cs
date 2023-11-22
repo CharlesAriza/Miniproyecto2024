@@ -20,6 +20,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
     private ThirdPersonController thirdPersonController;
     private StarterAssetsInputs starterAssetsInputs;
     private Animator animator;
+   
 
     [Header("Bullet Configuration")]
     [SerializeField] int maxBullet = 100;
@@ -50,7 +51,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
 
         Vector3 mouseWorldPosition = Vector3.zero;
         Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
-        Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+        Ray ray = PlayerHelperInicializator.Singleton.MainCamera.associatedCamera.ScreenPointToRay(screenCenterPoint);
         if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, aimColliderMask))
         {
             debugTransform.position = raycastHit.point;

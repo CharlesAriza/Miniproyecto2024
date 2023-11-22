@@ -284,6 +284,7 @@ namespace StarterAssets
             // update animator if using character
             if (_hasAnimator)
             {
+                Debug.Log("Animacion Funciona");
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }

@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class MainCameraFind : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Camera associatedCamera;
+    private void Awake()
     {
-        
+        associatedCamera = GetComponent<Camera>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
