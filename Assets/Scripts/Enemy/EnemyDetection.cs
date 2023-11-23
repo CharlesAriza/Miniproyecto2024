@@ -1,3 +1,5 @@
+using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyDetection : MonoBehaviour
@@ -6,14 +8,17 @@ public class EnemyDetection : MonoBehaviour
     private Transform player;
     private EnemyMovement enemyMovement;
 
+    
     void Start()
     {
+       
         player = GameObject.FindGameObjectWithTag("Player").transform;
         enemyMovement = GetComponent<EnemyMovement>();
     }
 
     private void Update()
     {
+        
         if (player != null)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
@@ -32,6 +37,7 @@ public class EnemyDetection : MonoBehaviour
     // Manejar el trigger con el jugador
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.CompareTag("Player"))
         {
             PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();

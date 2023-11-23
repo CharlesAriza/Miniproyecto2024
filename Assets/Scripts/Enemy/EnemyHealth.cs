@@ -1,4 +1,5 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
@@ -10,11 +11,13 @@ public class EnemyHealth : MonoBehaviour
 
     void Start()
     {
+        
         currentHealth = maxHealth;
     }
 
     public void TakeDamage(float damage)
     {
+        
         currentHealth -= damage;
 
         if (currentHealth <= 0)
@@ -25,6 +28,7 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
+        
         if (deathVFXPrefab != null)
         {
             Instantiate(deathVFXPrefab, transform.position, transform.rotation);
