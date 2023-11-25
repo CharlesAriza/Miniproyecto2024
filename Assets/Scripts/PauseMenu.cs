@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.Netcode;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenu : NetworkBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
@@ -50,13 +51,17 @@ public class PauseMenu : MonoBehaviour
     }
     public void LoadMenu()
     {
-       //ATENCIÓN: Si no va a la escena "Program" se bugea! Esto es debido a que program se tiene que cargar primero que "MainMenu" para el correcto funcionamiento del juego.
+        NetworkManager.Singleton.Shutdown();
+        Cleanup();
+        //ATENCIÓN: Si no va a la escena "Program" se bugea! Esto es debido a que program se tiene que cargar primero que "MainMenu" para el correcto funcionamiento del juego.
         SceneManager.LoadScene("Program");
         Debug.Log("Loding menu...");
     }
 
     public void QuitGame()
     {
+        NetworkManager.Singleton.Shutdown();
+        Cleanup();
         Debug.Log("Quitting game...");
         Application.Quit();
     }
@@ -66,6 +71,14 @@ public class PauseMenu : MonoBehaviour
         hideUI.SetActive(true);
     }
 
+    //Limpia el Network Object que se duplica.
+    void Cleanup()
+    {
+        if (NetworkManager.Singleton != null)
+        {
+            Destroy(NetworkManager.Singleton.gameObject);
+        }
+    }
     public void DesactivarCrosshair()
     {
         hideUI.SetActive(false);

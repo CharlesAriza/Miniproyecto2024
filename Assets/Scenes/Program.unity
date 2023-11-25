@@ -273,7 +273,7 @@ MonoBehaviour:
   staticScene: Program
   mainMenuScene: MainMenu
   gameScene: Level_1
-  lobbyScene: Lobby
+  lobbyScene: Level_1
 --- !u!4 &1779124835
 Transform:
   m_ObjectHideFlags: 0
