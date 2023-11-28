@@ -27,7 +27,7 @@ public class GeneralNetworkEvents : MonoBehaviour
     private void ServerHasStarted()
     {
         
-        SceneLoader.Instance.LoadScenes(new string[] { SceneLoader.Instance.LobbyScene }, false, true);
+        SceneLoader.Instance.LoadScenes(new string[] { SceneLoader.Instance.LobbyScene, SceneLoader.Instance.OnlineBaseScene  }, false, true);
         //SceneLoader.Instance.LoadScenes(new string[] { SceneLoader.Instance.GameScene }, true, true);
     }
 

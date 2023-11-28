@@ -12,10 +12,12 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private string mainMenuScene = "MainMenuScene";
     [SerializeField] private string gameScene = "GameScene";
     [SerializeField] private string lobbyScene = "Lobby";
+    [SerializeField] private string onlineBaseScene = "OnlineBaseScene";
     public string LobbyScene => lobbyScene;
 
     public string MainMenuScene => mainMenuScene;
     public string GameScene => gameScene;
+    public string OnlineBaseScene => onlineBaseScene;
 
     private void Awake()
     {
@@ -34,15 +36,43 @@ public class SceneLoader : MonoBehaviour
 
     private void Start()
     {
-        LoadScenes(new string[] { mainMenuScene }, true,false);
+        LoadScenes(new string[] { mainMenuScene }, true, false);
     }
 
     public void LoadScenes(string[] scenesNames, bool removeOtherScenes, bool onlineLoad)
     {
+        StartCoroutine(LoadScenesCorrutine(scenesNames, removeOtherScenes, onlineLoad));    
+    }
+
+    public IEnumerator LoadScenesCorrutine (string[] scenesNames, bool removeOtherScenes, bool onlineLoad)
+    {
         //Load All wanted Scene.
         for (int i = 0; i < scenesNames.Length; i++)
         {
-          LoadScene(scenesNames[i], onlineLoad);
+            SceneEventProgressStatus loadOperation = SceneEventProgressStatus.None;
+
+            if (IsSceneLoaded(scenesNames[i]))
+            {
+                Debug.LogFormat("Scene <color=yellow>" + scenesNames[i] + "</color> is Already loaded, not loading anything");
+            }
+            else
+            {
+                if (onlineLoad)
+                {
+                    loadOperation = NetworkManager.Singleton.SceneManager.LoadScene(scenesNames[i], LoadSceneMode.Additive);
+                    Debug.Log("Load scene online ->" + loadOperation.ToString());
+
+                }
+                else
+                {
+                    SceneManager.LoadSceneAsync(scenesNames[i], LoadSceneMode.Additive);
+                }
+            }
+            while(loadOperation == SceneEventProgressStatus.SceneEventInProgress || loadOperation ==  SceneEventProgressStatus.Started)
+            {
+                yield return null;
+
+            }
         }
 
         if (removeOtherScenes)
@@ -51,24 +81,10 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-    private void LoadScene(string sceneName, bool onlineLoad)
+    [ContextMenu("Unload Lobby")]
+    public void UnloadLobby()
     {
-        if (IsSceneLoaded(sceneName))
-        {
-            Debug.LogFormat("Scene <color=yellow>" + sceneName + "</color> is Already loaded, not loading anything");
-        }
-        else
-        {
-            if (onlineLoad)
-            {
-                NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
-              
-            }
-            else
-            {
-                SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-            }
-        }
+        NetworkManager.Singleton.SceneManager.UnloadScene(SceneManager.GetSceneByName(LobbyScene));
     }
 
     private IEnumerator RemoveUnwantedScenes(string[] wantedScenes, bool onlineLoad)
@@ -101,7 +117,9 @@ public class SceneLoader : MonoBehaviour
             {
                 if (onlineLoad)
                 {
-                    NetworkManager.Singleton.SceneManager.UnloadScene(unwantedScenes[i]);
+                    //  Debug.Log("Unload scene online " + unwantedScenes[i].name);
+                    SceneEventProgressStatus loadoperation = NetworkManager.Singleton.SceneManager.UnloadScene(unwantedScenes[i]);
+                    Debug.Log("Unload scene online -> " + loadoperation.ToString());
                 }
                 else
                 {
