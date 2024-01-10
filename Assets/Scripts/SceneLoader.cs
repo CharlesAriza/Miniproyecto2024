@@ -19,6 +19,11 @@ public class SceneLoader : MonoBehaviour
     public string GameScene => gameScene;
     public string OnlineBaseScene => onlineBaseScene;
 
+    private void OnValidate()
+    {
+        
+    }
+
     private void Awake()
     {
         if (instance == null)
