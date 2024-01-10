@@ -1379,6 +1379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab9e66747bb61534bbeef62fb72c0ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lobbyCanvas: {fileID: 1389243370}
   startGame: {fileID: 1920231591}
 --- !u!4 &1327087387
 Transform:

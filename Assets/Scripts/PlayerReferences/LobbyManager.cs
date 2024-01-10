@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class LobbyManager : NetworkBehaviour
 {
+    //public GameObject lobbyCanvas;
     public Button startGame;
     private void Start()
     {
@@ -25,7 +26,8 @@ public class LobbyManager : NetworkBehaviour
         {
             Debug.Log("Cargando juego...");
             SceneLoader.Instance.LoadScenes(new string[] { SceneLoader.Instance.GameScene }, true, true);
-        }
+            //lobbyCanvas.SetActive(false);
+;        }
     }
 
 }

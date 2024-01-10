@@ -251,6 +251,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1779124835}
   - component: {fileID: 1779124834}
+  - component: {fileID: 1779124837}
+  - component: {fileID: 1779124836}
   m_Layer: 0
   m_Name: SceneLoader
   m_TagString: Untagged
@@ -274,6 +276,7 @@ MonoBehaviour:
   mainMenuScene: MainMenu
   gameScene: Level_1
   lobbyScene: Lobby
+  onlineBaseScene: OnlineBaseScene
 --- !u!4 &1779124835
 Transform:
   m_ObjectHideFlags: 0
@@ -289,6 +292,43 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1779124836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779124833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3408667454
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &1779124837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779124833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1625772116fd1c647b1e0989939ec48c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenesPendingLoad: []
+  scenesPendingUnLoad: []
+  loadingSceneInProgress: 0
+  timeOutForLoadingSceneInProgress: 30
+  timer_timeourLoadingSceneInProgress: 0
 --- !u!1 &1784150382
 GameObject:
   m_ObjectHideFlags: 0

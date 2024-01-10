@@ -12,6 +12,28 @@ public class MainMenu : NetworkBehaviour
     public TMP_InputField IP;
     public TMP_InputField portText;
     private ushort port;
+
+
+    public void Start()
+    {
+        NetworkManager.Singleton.OnServerStarted += callbackOnServerStarted;
+        NetworkManager.Singleton.OnClientStarted += callbackWhenclientsDisconects;
+    }
+
+    private void callbackOnServerStarted()
+    {
+        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("MainMenu");
+        SceneLoaderMultiplayer.Instance.UnloadScene("LobbyScene");
+    }
+
+
+    private void callbackWhenclientsDisconects()
+    {
+        SceneLoaderMultiplayer.Instance.UnloadScene("LobbyScene");
+        SceneLoaderMultiplayer.Instance.UnloadScene("GameScene");
+ 
+    }
+
     public void PlayOfflineGame()
     {
         SceneLoader.Instance.LoadScenes(new string[] { SceneLoader.Instance.GameScene },true,false);

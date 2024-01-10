@@ -19,11 +19,6 @@ public class SceneLoader : MonoBehaviour
     public string GameScene => gameScene;
     public string OnlineBaseScene => onlineBaseScene;
 
-    private void OnValidate()
-    {
-        
-    }
-
     private void Awake()
     {
         if (instance == null)
@@ -46,10 +41,10 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadScenes(string[] scenesNames, bool removeOtherScenes, bool onlineLoad)
     {
-        StartCoroutine(LoadScenesCorrutine(scenesNames, removeOtherScenes, onlineLoad));    
+        StartCoroutine(LoadScenesCorrutine(scenesNames, removeOtherScenes, onlineLoad));
     }
 
-    public IEnumerator LoadScenesCorrutine (string[] scenesNames, bool removeOtherScenes, bool onlineLoad)
+    public IEnumerator LoadScenesCorrutine(string[] scenesNames, bool removeOtherScenes, bool onlineLoad)
     {
         //Load All wanted Scene.
         for (int i = 0; i < scenesNames.Length; i++)
@@ -73,7 +68,7 @@ public class SceneLoader : MonoBehaviour
                     SceneManager.LoadSceneAsync(scenesNames[i], LoadSceneMode.Additive);
                 }
             }
-            while(loadOperation == SceneEventProgressStatus.SceneEventInProgress || loadOperation ==  SceneEventProgressStatus.Started)
+            while (loadOperation == SceneEventProgressStatus.SceneEventInProgress || loadOperation == SceneEventProgressStatus.Started)
             {
                 yield return null;
 
@@ -173,4 +168,3 @@ public class SceneLoader : MonoBehaviour
     //    return SceneManager.GetSceneAt(0);
     //}
 }
-
