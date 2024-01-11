@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scenesPendingLoad: []
-  scenesPendingUnLoad: []
+  scenesPendingUnload: []
   loadingSceneInProgress: 0
   timeOutForLoadingSceneInProgress: 30
   timer_timeourLoadingSceneInProgress: 0

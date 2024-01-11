@@ -10,7 +10,8 @@ public class PlayerHealth : NetworkBehaviour
 {
     public CharacterController characterController; // Agrega una referencia al CharacterController
     public Transform checkpoint;
-    private NetworkVariable<float> health = new NetworkVariable<float>(100f);
+    public float health;
+    //private NetworkVariable<float> health = new NetworkVariable<float>(100f);
     private float lerpTimer;
     [Header("Health Bar")]
     public float maxHealth = 100f;
@@ -32,7 +33,7 @@ public class PlayerHealth : NetworkBehaviour
         frontHealthBar = PlayerHelperInicializator.Singleton.frontHealthBar.GetComponent<Image>();
         backHealthBar = PlayerHelperInicializator.Singleton.backHealthBar.GetComponent<Image> ();
         overlay = PlayerHelperInicializator.Singleton.overlay.GetComponent<Image>();
-        health.Value = maxHealth;
+        health = maxHealth;
         overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 0);
         }
     }
@@ -42,12 +43,12 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (IsOwner)
         {
-            health.Value = Mathf.Clamp(health.Value, 0, maxHealth);
+            health = Mathf.Clamp(health, 0, maxHealth);
             UpdateHealthUI();
 
             if (overlay.color.a > 0)
             {
-                if (health.Value < 30)
+                if (health < 30)
                     return;
 
                 durationTimer += Time.deltaTime;
@@ -67,7 +68,7 @@ public class PlayerHealth : NetworkBehaviour
         {
             float fillF = frontHealthBar.fillAmount;
             float fillB = backHealthBar.fillAmount;
-            float hFraction = health.Value / maxHealth;
+            float hFraction = health / maxHealth;
             if (fillB > hFraction)
             {
                 frontHealthBar.fillAmount = hFraction;
@@ -91,12 +92,12 @@ public class PlayerHealth : NetworkBehaviour
 
     public void TakeDamage(float damage)
     {
-        health.Value -= damage;
+        health -= damage;
         lerpTimer = 0f;
         durationTimer = 0;
         overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 1);
 
-        if (health.Value <= 0)
+        if (health <= 0)
         {
             // Teletransporta al jugador al checkpoint
             TeleportToCheckpoint();
@@ -104,7 +105,7 @@ public class PlayerHealth : NetworkBehaviour
     }
     public void RestoreHealth(float healAmount)
     {
-        health.Value += healAmount;
+        health += healAmount;
         lerpTimer = 0f;
     }
     void OnTriggerEnter(Collider other)
@@ -114,7 +115,7 @@ public class PlayerHealth : NetworkBehaviour
             if (other.CompareTag("Trap"))
             {
                 TakeDamage(40f);
-                Destroy(other.gameObject);
+                other.GetComponent<EnemyHealth>().DieServerRPC();
             }
 
             if (other.CompareTag("Health"))
@@ -143,7 +144,7 @@ public class PlayerHealth : NetworkBehaviour
             characterController.enabled = true;
 
            // Restaura la salud del jugador al máximo (si deseas)
-            health.Value = maxHealth;
+            health = maxHealth;
         }
         else
         {

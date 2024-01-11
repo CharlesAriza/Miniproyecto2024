@@ -2,7 +2,7 @@ using System;
 using Unity.Netcode;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : NetworkBehaviour
 {
     public float maxHealth = 100f;
     private float currentHealth;
@@ -15,18 +15,33 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(float damage)
+
+    [ServerRpc]
+
+    public void TakeDamageServerRPC(float damage)
+    {
+        TakeDamageClientRPC(damage);
+    }
+    [ClientRpc]
+    public void TakeDamageClientRPC(float damage)
     {
         
         currentHealth -= damage;
 
         if (currentHealth <= 0)
         {
-            Die();
+            DieServerRPC();
         }
     }
 
-    void Die()
+    [ServerRpc(RequireOwnership = false)]
+    public void DieServerRPC() 
+    
+    {
+        DieClientRPC();
+    }
+    [ClientRpc]
+    void DieClientRPC()
     {
         
         if (deathVFXPrefab != null)
@@ -37,8 +52,5 @@ public class EnemyHealth : MonoBehaviour
         gameObject.SetActive(false); // Destruye el objeto enemigo.
     }
 
-    internal void ResetEnemy()
-    {
-        throw new NotImplementedException();
-    }
+    
 }

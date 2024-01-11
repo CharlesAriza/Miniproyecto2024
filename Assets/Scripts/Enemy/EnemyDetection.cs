@@ -2,7 +2,7 @@ using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyDetection : MonoBehaviour
+public class EnemyDetection : NetworkBehaviour
 {
     public float detectionDistance = 2f; // Distancia mínima para atacar
     private Transform player;

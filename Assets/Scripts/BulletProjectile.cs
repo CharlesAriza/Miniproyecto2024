@@ -32,7 +32,7 @@ public class BulletProjectile : MonoBehaviour
             if (enemyHealth != null)
             {
                 // Causa daño al enemigo utilizando el valor de bulletDamage
-                enemyHealth.TakeDamage(bulletDamage);
+                enemyHealth.TakeDamageServerRPC(bulletDamage);
             }        
             
         }
