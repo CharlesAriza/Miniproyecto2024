@@ -10,7 +10,7 @@ public class SceneLoaderMultiplayer : NetworkBehaviour
     public static SceneLoaderMultiplayer Instance => instance;
 
     public List<string> scenesPendingLoad;
-    public List<string> scenesPendingUnLoad;
+    public List<string> scenesPendingUnload;
 
     public bool loadingSceneInProgress = false;
 
@@ -69,19 +69,21 @@ public class SceneLoaderMultiplayer : NetworkBehaviour
         }
         else
         {
-            if (scenesPendingUnLoad != null && scenesPendingUnLoad.Count > 0)
+            if (scenesPendingUnload != null && scenesPendingUnload.Count > 0)
             {
                 loadingSceneInProgress = true;
-                NetworkManager.Singleton.SceneManager.LoadScene(scenesPendingUnLoad[0], LoadSceneMode.Additive);
-                scenesPendingUnLoad.RemoveAt(0);
-
+                Debug.Log("Descargando escena: " + scenesPendingUnload[0]);
+                NetworkManager.Singleton.SceneManager.UnloadScene(SceneManager.GetSceneByName(scenesPendingUnload[0]));
+                scenesPendingUnload.RemoveAt(0);
             }
-            else if (scenesPendingUnLoad != null && scenesPendingUnLoad.Count > 0)
+            else if (scenesPendingLoad != null && scenesPendingLoad.Count > 0)
             {
                 loadingSceneInProgress = true;
-                NetworkManager.Singleton.SceneManager.UnloadScene(SceneManager.GetSceneByName(scenesPendingUnLoad[0]));
-                scenesPendingUnLoad.RemoveAt(0);
+                Debug.Log("Cargando escena: " + scenesPendingLoad[0]);
+                NetworkManager.Singleton.SceneManager.LoadScene(scenesPendingLoad[0], LoadSceneMode.Additive);
+                scenesPendingLoad.RemoveAt(0);
             }
+           
         }
     }
     public override void OnDestroy()
@@ -96,9 +98,9 @@ public class SceneLoaderMultiplayer : NetworkBehaviour
 
     public void LoadScene(string sceneToLoad)
     {
-        if (!scenesPendingUnLoad.Contains(sceneToLoad))
+        if (!scenesPendingLoad.Contains(sceneToLoad))
         {
-            scenesPendingUnLoad.Add(sceneToLoad);
+            scenesPendingLoad.Add(sceneToLoad);
         }
         else
         {
@@ -107,9 +109,9 @@ public class SceneLoaderMultiplayer : NetworkBehaviour
     }
     public void UnloadScene(string sceneToUnLoad)
     {
-        if (!scenesPendingUnLoad.Contains(sceneToUnLoad))
+        if (!scenesPendingUnload.Contains(sceneToUnLoad))
         {
-            scenesPendingUnLoad.Add(sceneToUnLoad);
+            scenesPendingUnload.Add(sceneToUnLoad);
         }
         else
         {

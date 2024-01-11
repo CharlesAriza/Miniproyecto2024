@@ -25,9 +25,11 @@ public class LobbyManager : NetworkBehaviour
         if (IsServer)
         {
             Debug.Log("Cargando juego...");
-            SceneLoader.Instance.LoadScenes(new string[] { SceneLoader.Instance.GameScene }, true, true);
+            SceneLoaderMultiplayer.Instance.LoadScene(SceneLoader.Instance.GameScene);
+            SceneLoaderMultiplayer.Instance.UnloadScene(SceneLoader.Instance.LobbyScene);
+            //SceneLoader.Instance.LoadScenes(new string[] { SceneLoader.Instance.GameScene }, true, true);
             //lobbyCanvas.SetActive(false);
-;        }
+            ;        }
     }
 
 }

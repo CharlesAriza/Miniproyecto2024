@@ -1135,7 +1135,7 @@ GameObject:
   - component: {fileID: 403345142}
   - component: {fileID: 403345143}
   m_Layer: 0
-  m_Name: HostMenu
+  m_Name: Deprecated HostMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2090,7 +2090,7 @@ GameObject:
   - component: {fileID: 908364273}
   - component: {fileID: 908364274}
   m_Layer: 0
-  m_Name: ClientMenu
+  m_Name: Deprecated  ClientMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

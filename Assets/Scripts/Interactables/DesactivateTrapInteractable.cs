@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class DesactivateTrapInteractable : MonoBehaviour, IInteractable
+public class DesactivateTrapInteractable : NetworkBehaviour, IInteractable
 {
     [SerializeField] private GameObject fireTrap;
     private bool trapActive;
@@ -20,12 +21,16 @@ public class DesactivateTrapInteractable : MonoBehaviour, IInteractable
 
     }
 
-    public void Interact()
+    [ServerRpc(RequireOwnership =false)]
+    private void InteractServerRPC()
     {
-
         Debug.Log("Interacted with TrapDisabler");
         trapActive = !trapActive;
         fireTrap.GetComponent<Animator>().SetBool("IsActive", trapActive);
+    }
 
+    public void Interact()
+    {
+        InteractServerRPC();
     }
 }

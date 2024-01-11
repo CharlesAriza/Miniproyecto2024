@@ -5,35 +5,37 @@ using Unity.Netcode;
 using UnityEngine;
 
 public class GeneralNetworkEvents : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
+{ 
+
+    public void Start()
     {
-        NetworkManager.Singleton.OnServerStarted += ServerHasStarted;
-        NetworkManager.Singleton.OnClientStarted += LocalClientConnection;
+        NetworkManager.Singleton.OnServerStarted += callbackOnServerStarted;
+        NetworkManager.Singleton.OnClientStarted += CallbackOnClientStarted;
+        NetworkManager.Singleton.OnClientStopped += callbackWhenclientsDisconects;
     }
 
-    private void LocalClientConnection()
+    private void CallbackOnClientStarted()
     {
-        SceneLoader.Instance.LoadScenes(new string[] { }, true, false);
+        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(SceneLoader.Instance.MainMenuScene);
     }
 
+    private void callbackWhenclientsDisconects(bool obj)
+    {
+        Debug.Log("Client disconnected");
+        SceneLoaderMultiplayer.Instance.UnloadScene(SceneLoader.Instance.LobbyScene);
+        SceneLoaderMultiplayer.Instance.UnloadScene(SceneLoader.Instance.GameScene);
+    }
+
+    private void callbackOnServerStarted()
+    {
+        Debug.Log("Server started");       
+        SceneLoaderMultiplayer.Instance.LoadScene(SceneLoader.Instance.LobbyScene);
+    }
+   
     void OnDestroy()
     {
-        NetworkManager.Singleton.OnServerStarted -= ServerHasStarted;
-    }
-
-
-    private void ServerHasStarted()
-    {
-        
-        SceneLoader.Instance.LoadScenes(new string[] { SceneLoader.Instance.LobbyScene, SceneLoader.Instance.OnlineBaseScene  }, false, true);
-        //SceneLoader.Instance.LoadScenes(new string[] { SceneLoader.Instance.GameScene }, true, true);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        NetworkManager.Singleton.OnServerStarted -= callbackOnServerStarted;
+        NetworkManager.Singleton.OnClientStarted -= CallbackOnClientStarted;
+        NetworkManager.Singleton.OnClientStopped -= callbackWhenclientsDisconects;
     }
 }

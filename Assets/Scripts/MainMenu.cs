@@ -1,9 +1,7 @@
 using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 public class MainMenu : NetworkBehaviour
@@ -14,29 +12,9 @@ public class MainMenu : NetworkBehaviour
     private ushort port;
 
 
-    public void Start()
-    {
-        NetworkManager.Singleton.OnServerStarted += callbackOnServerStarted;
-        NetworkManager.Singleton.OnClientStarted += callbackWhenclientsDisconects;
-    }
-
-    private void callbackOnServerStarted()
-    {
-        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("MainMenu");
-        SceneLoaderMultiplayer.Instance.UnloadScene("LobbyScene");
-    }
-
-
-    private void callbackWhenclientsDisconects()
-    {
-        SceneLoaderMultiplayer.Instance.UnloadScene("LobbyScene");
-        SceneLoaderMultiplayer.Instance.UnloadScene("GameScene");
- 
-    }
-
     public void PlayOfflineGame()
     {
-        SceneLoader.Instance.LoadScenes(new string[] { SceneLoader.Instance.GameScene },true,false);
+        SceneLoader.Instance.LoadScenes(new string[] { SceneLoader.Instance.GameScene }, true, false);
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
