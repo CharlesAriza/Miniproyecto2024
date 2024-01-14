@@ -1241,7 +1241,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.3
+  m_fontSize: 31.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9775,6 +9775,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfxPrefab: {fileID: 0}
   vfxDuration: 2
+  damage: 40
 --- !u!4 &572528394 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4953515406950409149, guid: 47f351e87f23b2d4783c5f64bc28ef78,
@@ -11455,6 +11456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfxPrefab: {fileID: 0}
   vfxDuration: 2
+  damage: 40
 --- !u!4 &702906205 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4953515406950409149, guid: 47f351e87f23b2d4783c5f64bc28ef78,
@@ -11576,6 +11578,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfxPrefab: {fileID: 0}
   vfxDuration: 2
+  damage: 40
 --- !u!4 &714323404 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4953515406950409149, guid: 47f351e87f23b2d4783c5f64bc28ef78,
@@ -41165,6 +41168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfxPrefab: {fileID: 0}
   vfxDuration: 2
+  damage: 40
 --- !u!4 &1941726490 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4953515406950409149, guid: 47f351e87f23b2d4783c5f64bc28ef78,
@@ -41324,7 +41328,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 67435c66a94631c4b9378e84f9d128da, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 39317881738804644bb8ca6eae2ad71c, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &1977767227
 GameObject:

@@ -11,7 +11,7 @@ public class EnemyDetection : NetworkBehaviour
     
     void Start()
     {
-        if (IsOwner)
+        if (!IsOwner) { return; }
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
             enemyMovement = GetComponent<EnemyMovement>();
@@ -20,7 +20,7 @@ public class EnemyDetection : NetworkBehaviour
 
     private void Update()
     {
-        
+        if (!IsOwner) { return; }
         if (player != null)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
@@ -50,7 +50,23 @@ public class EnemyDetection : NetworkBehaviour
             }
 
             // Destruir el enemigo
-            Destroy(gameObject);
+            DestroyEnemyServerRPC();
         }
     }
+
+
+    //Sincronizar la muerte del enemigo por colision.
+    [ClientRpc]
+    private void DestroyEnemyClientRPC()
+    {
+        Destroy(gameObject);
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void DestroyEnemyServerRPC()
+    {
+        DestroyEnemyClientRPC();
+    }
+
 }
