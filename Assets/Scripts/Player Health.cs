@@ -121,7 +121,7 @@ public class PlayerHealth : NetworkBehaviour
             if (other.CompareTag("Health"))
             {
                 RestoreHealth(40f);
-                Destroy(other.gameObject);
+                other.GetComponent<PickupRPC>().DestroyPickupServerRPC();
             }
 
             if (other.CompareTag("Killwall"))

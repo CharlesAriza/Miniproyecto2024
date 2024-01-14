@@ -111,7 +111,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
             currentBulletsText.text = currentBullets.ToString();
 
             // Desactiva el objeto recolector de balas para que no pueda ser recogido nuevamente.
-            other.gameObject.SetActive(false);
+             other.GetComponent<PickupRPC>().DestroyPickupServerRPC();
         }
     }
     public void AddBullets(int bulletsToadd)
