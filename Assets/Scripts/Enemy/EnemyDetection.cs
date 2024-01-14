@@ -11,9 +11,11 @@ public class EnemyDetection : NetworkBehaviour
     
     void Start()
     {
-       
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        enemyMovement = GetComponent<EnemyMovement>();
+        if (IsOwner)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+            enemyMovement = GetComponent<EnemyMovement>();
+        }
     }
 
     private void Update()

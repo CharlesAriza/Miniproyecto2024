@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 
-public class BulletProjectile : MonoBehaviour
+public class BulletProjectile : NetworkBehaviour
 {
     public GameObject vfxPrefab; // Asigna el VFX en el inspector
     private Rigidbody bulletRigidbody;
@@ -20,6 +21,7 @@ public class BulletProjectile : MonoBehaviour
         float speed = 40f;
         bulletRigidbody.velocity = transform.forward * speed;
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
