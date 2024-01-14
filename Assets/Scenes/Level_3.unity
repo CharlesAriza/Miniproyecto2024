@@ -27255,6 +27255,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerInitializer
       objectReference: {fileID: 0}
+    - target: {fileID: 1632798746783369994, guid: 054cffb980823cc43bee761c16a4fd8b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6683343497254428809, guid: 054cffb980823cc43bee761c16a4fd8b,
         type: 3}
       propertyPath: GlobalObjectIdHash

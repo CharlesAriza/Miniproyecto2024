@@ -4,6 +4,7 @@ using Unity.Netcode;
 
 public class PauseMenu : NetworkBehaviour
 {
+    public GameObject HostQuit;
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
     public GameObject hideUI;
@@ -51,6 +52,7 @@ public class PauseMenu : NetworkBehaviour
     }
     public void LoadMenu()
     {
+        OnServerQuitServerRPC();
         NetworkManager.Singleton.Shutdown();
         Cleanup();
         //ATENCIÓN: Si no va a la escena "Program" se bugea! Esto es debido a que program se tiene que cargar primero que "MainMenu" para el correcto funcionamiento del juego.
@@ -60,6 +62,7 @@ public class PauseMenu : NetworkBehaviour
 
     public void QuitGame()
     {
+        OnServerQuitServerRPC();
         NetworkManager.Singleton.Shutdown();
         Cleanup();
         Debug.Log("Quitting game...");
@@ -83,4 +86,25 @@ public class PauseMenu : NetworkBehaviour
     {
         hideUI.SetActive(false);
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void OnServerQuitServerRPC()
+    {
+        OnServerQuitClientRPC();
+    }
+
+    [ClientRpc]
+
+    public void OnServerQuitClientRPC()
+    {
+        if(!IsServer)
+        {
+            Cursor.visible = true; // Muestra el cursor
+            Cursor.lockState = CursorLockMode.None;
+            HostQuit.SetActive(true);
+        }
+        
+    }
+
+
 }

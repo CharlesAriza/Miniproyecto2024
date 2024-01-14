@@ -32,7 +32,7 @@ public class PlayerHelperInicializator : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Me he iniciadoooooooo");
+        Debug.Log("PlayerHelperInicializator iniciado");
         if (singleton == null)
         {
             singleton = this;
