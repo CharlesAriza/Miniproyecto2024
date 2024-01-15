@@ -16,8 +16,8 @@ public class EnemyMovement : NetworkBehaviour
 
     void Update()
     {
-        //Añadimos un offset para que vaya al pecho del jugador.
-        // new Vector3(player.position.x, player.position.y + 1f, player.position.z);
+        ////Añadimos un offset para que vaya al pecho del jugador.
+        //// new Vector3(player.position.x, player.position.y + 1f, player.position.z);
         //Vector3 target = player.position + Vector3.up;
         if (canMove && player != null)
         {

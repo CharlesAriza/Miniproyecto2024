@@ -9,6 +9,7 @@ public class BulletProjectile : NetworkBehaviour
     public GameObject vfxPrefab; // Asigna el VFX en el inspector
     private Rigidbody bulletRigidbody;
     public float bulletDamage = 10f; // Daño de la bala
+    float speed = 40f;
 
 
     private void Awake()
@@ -16,12 +17,15 @@ public class BulletProjectile : NetworkBehaviour
         bulletRigidbody = GetComponent<Rigidbody>();
     }
 
-    private void Start()
-    {
-        float speed = 40f;
-        bulletRigidbody.velocity = transform.forward * speed;
-    }
+    //private void Start()
+    //{
+        //bulletRigidbody.velocity = transform.forward * speed;
+    //}
 
+    public void InitBullet(Vector3 aimDirection)
+    {
+        bulletRigidbody.velocity = aimDirection.normalized * speed;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -42,8 +46,25 @@ public class BulletProjectile : NetworkBehaviour
         //Instanciamos el VFX cuando toca con un collider.
         if (vfxPrefab != null)
         {
-            Instantiate(vfxPrefab, transform.position, transform.rotation);
+            bulletVFXClientRPC();
         }
         Destroy(gameObject);
+
+    }
+
+
+    //sincronizar VFX balas
+    [ServerRpc(RequireOwnership = false)]
+    public void bulletVFXServerRPC()
+
+    {
+       bulletVFXClientRPC();
+    }
+
+    [ClientRpc]
+    void bulletVFXClientRPC()
+    {
+        Instantiate(vfxPrefab, transform.position, transform.rotation);
+
     }
 }

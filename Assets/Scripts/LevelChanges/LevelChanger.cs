@@ -9,36 +9,47 @@ public class LevelChanger : NetworkBehaviour
     public string CurrentLevel;
     public string NextLevel;
 
-    ThirdPersonShooterController[] thirdPersonShooterControllers;
+    GameObject[] thirdPersonShooterControllers;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             DespawnPlayerServerRPC();
-            LevelChangeServerRPC();
+           
         }
     }
 
-    [ClientRpc]
-    public void DespawnPlayerClientRPC()
-    {
-        thirdPersonShooterControllers = FindObjectsOfType<ThirdPersonShooterController>();
-        for (int i = 0; i < thirdPersonShooterControllers.Length; i++)
-        {
-            thirdPersonShooterControllers[i].GetComponent<NetworkObject>().Despawn();
-        }
-    }
+    //[ClientRpc]
+    //public void DespawnPlayerClientRPC()
+    //{
+    //    thirdPersonShooterControllers = FindObjectsOfType<ThirdPersonShooterController>();
+    //    for (int i = 0; i < thirdPersonShooterControllers.Length; i++)
+    //    {
+    //        //thirdPersonShooterControllers[i].GetComponent<NetworkObject>().Despawn();
+    //        thirdPersonShooterControllers()
+    //    }
+    //}
 
 
     [ServerRpc(RequireOwnership = false)]
     public void DespawnPlayerServerRPC()
     {
-        DespawnPlayerClientRPC();
+
+        thirdPersonShooterControllers = GameObject.FindGameObjectsWithTag("Player");
+        for (int i = 0; i < thirdPersonShooterControllers.Length; i++)
+        {
+            Debug.Log("DespawnCompletado");
+            //thirdPersonShooterControllers[i].GetComponent<NetworkObject>().Despawn();
+            Destroy(thirdPersonShooterControllers[i].gameObject);
+
+        }
+        LevelChangeServerRPC();
     }
 
     [ServerRpc(RequireOwnership = false)]
     public void LevelChangeServerRPC()
     {
+        
         SceneLoaderMultiplayer.Instance.UnloadScene(CurrentLevel);
         SceneLoaderMultiplayer.Instance.LoadScene(NextLevel);
     }

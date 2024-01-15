@@ -72,13 +72,15 @@ public class ThirdPersonShooterController : NetworkBehaviour
             //Ponemos el starterAssetsInput.shoot dentro del aim para que no se pueda disparar si no se esta apuntando.
             if (starterAssetsInputs.shoot && currentBullets > 0)
             {
-                currentBullets--;
-                currentBulletsText.text = currentBullets.ToString();
-
-
                 Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
-                Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
-                starterAssetsInputs.shoot = false;
+                ShootBulletServerRpc(aimDir);
+                //currentBullets--;
+                //currentBulletsText.text = currentBullets.ToString();
+
+
+                //Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
+                //Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+                //starterAssetsInputs.shoot = false;
             }
         }
 
@@ -100,6 +102,38 @@ public class ThirdPersonShooterController : NetworkBehaviour
         }*/
 
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ShootBulletServerRpc(Vector3 aimDirection)
+    {
+        Vector3 mouseWorldPosition = Vector3.zero;
+        currentBullets--;
+        currentBulletsText.text = currentBullets.ToString();
+
+
+        //Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
+
+        var Bullet = Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDirection, Vector3.up));
+        if (Bullet.TryGetComponent(out NetworkObject bulletNetworkObject))
+        {
+            bulletNetworkObject.Spawn();
+        }
+
+        if (Bullet.TryGetComponent(out Rigidbody bulletRigidbody))
+        {
+            bulletRigidbody.isKinematic = false;
+        }
+
+        if (Bullet.TryGetComponent(out BulletProjectile bulletProjectile))
+        {
+            bulletProjectile.InitBullet(aimDirection);
+            Debug.DrawRay(spawnBulletPosition.position, aimDirection, Color.blue, 2f);
+        }
+
+        starterAssetsInputs.shoot = false;
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Bullets"))

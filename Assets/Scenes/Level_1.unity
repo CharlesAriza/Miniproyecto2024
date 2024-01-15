@@ -8723,6 +8723,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 362756654}
     m_Modifications:
+    - target: {fileID: 6519687318478366644, guid: 23874d44b99f8b64f9f0cfc703b9468c,
+        type: 3}
+      propertyPath: agent
+      value: 
+      objectReference: {fileID: 470307226}
     - target: {fileID: 8372705805931968475, guid: 23874d44b99f8b64f9f0cfc703b9468c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8791,6 +8796,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1018757411}
   m_SourcePrefab: {fileID: 100100000, guid: 23874d44b99f8b64f9f0cfc703b9468c, type: 3}
+--- !u!195 &470307226 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 1666985397123960381, guid: 23874d44b99f8b64f9f0cfc703b9468c,
+    type: 3}
+  m_PrefabInstance: {fileID: 470307225}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &473547652 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c6571d5d5def93a43a178a882276843e,

@@ -5,25 +5,47 @@ using UnityEngine;
 public class EnemyDetection : NetworkBehaviour
 {
     public float detectionDistance = 2f; // Distancia mínima para atacar
-    private Transform player;
+    [SerializeField] private GameObject[] players;
+    [SerializeField] GameObject TargetPlayer;
     private EnemyMovement enemyMovement;
+
 
     
     void Start()
     {
-        if (!IsOwner) { return; }
-        {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
-            enemyMovement = GetComponent<EnemyMovement>();
-        }
+        //if (!IsOwner) { return; }
+        
+        //    player = GameObject.FindGameObjectWithTag("Player").transform;
+        //    enemyMovement = GetComponent<EnemyMovement>();
+        
     }
 
     private void Update()
     {
         if (!IsOwner) { return; }
-        if (player != null)
+
+        players = GameObject.FindGameObjectsWithTag("Player");
+        
+
+        if (players != null && players.Length > 0) 
+       
+        { 
+            TargetPlayer = players[0];
+            float BestDistanceToPlayer = Vector3.Distance(this.transform.position, TargetPlayer.transform.position);
+            for (int i = 0; i < players.Length; i++)
+            {
+               if (i == 0) { continue; }
+                if (Vector3.Distance(this.transform.position, players[i].transform.position) < BestDistanceToPlayer)
+                {
+                    BestDistanceToPlayer = Vector3.Distance(this.transform.position, players[i].transform.position);
+                    TargetPlayer = players[i];
+                }
+            }
+        }
+
+        if (TargetPlayer != null)
         {
-            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+            float distanceToPlayer = Vector3.Distance(transform.position, TargetPlayer.transform.position);
 
             if (distanceToPlayer <= detectionDistance)
             {
