@@ -12,7 +12,7 @@ public class WinScreen : NetworkBehaviour
     {
         if (other.CompareTag("Player")) // Cambia "Player" por la etiqueta del objeto que activará el trigger
         {
-            OnWinGameClientRPC();
+            OnWinGameServerRPC();
         }
     }
 
@@ -35,6 +35,9 @@ public class WinScreen : NetworkBehaviour
         
 
     }
+
+
+
 
 
 }

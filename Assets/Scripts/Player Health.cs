@@ -23,6 +23,9 @@ public class PlayerHealth : NetworkBehaviour
     public float fadeSpeed;
     public Image overlay;
     private float durationTimer;
+    private LivesUIManager livesUIManager;
+    private int deathsCount = 0;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +38,7 @@ public class PlayerHealth : NetworkBehaviour
         overlay = PlayerHelperInicializator.Singleton.overlay.GetComponent<Image>();
         health = maxHealth;
         overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 0);
+            livesUIManager = FindObjectOfType<LivesUIManager>();
         }
     }
 
@@ -62,6 +66,19 @@ public class PlayerHealth : NetworkBehaviour
         }
 
     }
+
+    private void UpdateLivesUI()
+    {
+        // Obtén el número de vidas restantes
+        int vidasRestantes = Mathf.Max(0, 5 - deathsCount);
+
+        // Actualiza la UI usando el LivesUIManager
+        if (livesUIManager != null)
+        {
+            livesUIManager.UpdateLivesUI(vidasRestantes);
+        }
+    }
+
     public void UpdateHealthUI()
     {
         if (IsOwner)
@@ -99,10 +116,14 @@ public class PlayerHealth : NetworkBehaviour
 
         if (health <= 0)
         {
+            deathsCount++;
+            UpdateLivesUI();
             // Teletransporta al jugador al checkpoint
             TeleportToCheckpoint();
         }
     }
+
+
     public void RestoreHealth(float healAmount)
     {
         health += healAmount;
