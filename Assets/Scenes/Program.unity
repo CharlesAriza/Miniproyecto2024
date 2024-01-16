@@ -274,7 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   staticScene: Program
   mainMenuScene: MainMenu
-  gameScene: Level_1
+  gameScene: Level_2
   lobbyScene: Lobby
   onlineBaseScene: OnlineBaseScene
 --- !u!4 &1779124835
