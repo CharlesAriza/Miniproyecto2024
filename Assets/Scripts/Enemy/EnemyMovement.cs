@@ -5,14 +5,20 @@ using UnityEngine.AI;
 public class EnemyMovement : NetworkBehaviour
 {
     public float movementSpeed = 5f;
-    private Transform player;
+    private Vector3 player;
     private bool canMove = false;
     public NavMeshAgent agent;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        
     }
+
+    //public override void OnNetworkSpawn()
+    //{
+    //    player = GameObject.FindGameObjectWithTag("Player").transform;
+    //}
+
 
     void Update()
     {
@@ -23,7 +29,7 @@ public class EnemyMovement : NetworkBehaviour
         {
             // Mueve el objeto hacia el jugador
             //transform.position =  Vector3.MoveTowards(transform.position, target, movementSpeed * Time.deltaTime);
-            agent.destination = player.position;
+            agent.destination = player;
         }
         else
         {
@@ -31,8 +37,9 @@ public class EnemyMovement : NetworkBehaviour
         }
     }
 
-    public void EnableMovement()
+    public void EnableMovement(Vector3 position)
     {
+        player = position;
         canMove = true;
     }
 

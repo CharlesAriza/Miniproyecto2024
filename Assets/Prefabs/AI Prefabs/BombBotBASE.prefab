@@ -137,6 +137,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionDistance: 10
+  players: []
+  TargetPlayer: {fileID: 0}
+  enemyMovement: {fileID: 2840199295720004395}
 --- !u!114 &7833992007948183579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +205,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 1141330259687333427, guid: d1ed03202a91cef44ba44e0dc8349742,
     type: 3}
   vfxDuration: 2
+  damage: 40
 --- !u!195 &1666985397123960381
 NavMeshAgent:
   m_ObjectHideFlags: 0

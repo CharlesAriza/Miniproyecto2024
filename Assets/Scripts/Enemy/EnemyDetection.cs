@@ -7,7 +7,7 @@ public class EnemyDetection : NetworkBehaviour
     public float detectionDistance = 2f; // Distancia mínima para atacar
     [SerializeField] private GameObject[] players;
     [SerializeField] GameObject TargetPlayer;
-    private EnemyMovement enemyMovement;
+    public EnemyMovement enemyMovement;
 
 
     
@@ -49,7 +49,7 @@ public class EnemyDetection : NetworkBehaviour
 
             if (distanceToPlayer <= detectionDistance)
             {
-                enemyMovement.EnableMovement();
+                enemyMovement.EnableMovement(TargetPlayer.transform.position);
             }
             else
             {
