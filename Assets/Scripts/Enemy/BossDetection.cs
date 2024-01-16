@@ -1,8 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyDetection : NetworkBehaviour
+public class BossDetection : NetworkBehaviour
 {
     public float detectionDistance = 2f; // Distancia mínima para atacar
     [SerializeField] private GameObject[] players;
@@ -10,14 +12,14 @@ public class EnemyDetection : NetworkBehaviour
     public EnemyMovement enemyMovement;
 
 
-    
+
     void Start()
     {
         //if (!IsOwner) { return; }
-        
+
         //    player = GameObject.FindGameObjectWithTag("Player").transform;
         //    enemyMovement = GetComponent<EnemyMovement>();
-        
+
     }
 
     private void Update()
@@ -25,16 +27,16 @@ public class EnemyDetection : NetworkBehaviour
         if (!IsOwner) { return; }
 
         players = GameObject.FindGameObjectsWithTag("Player");
-        
 
-        if (players != null && players.Length > 0) 
-       
-        { 
+
+        if (players != null && players.Length > 0)
+
+        {
             TargetPlayer = players[0];
             float BestDistanceToPlayer = Vector3.Distance(this.transform.position, TargetPlayer.transform.position);
             for (int i = 0; i < players.Length; i++)
             {
-               if (i == 0) { continue; }
+                if (i == 0) { continue; }
                 if (Vector3.Distance(this.transform.position, players[i].transform.position) < BestDistanceToPlayer)
                 {
                     BestDistanceToPlayer = Vector3.Distance(this.transform.position, players[i].transform.position);
@@ -61,18 +63,18 @@ public class EnemyDetection : NetworkBehaviour
     // Manejar el trigger con el jugador
     private void OnTriggerEnter(Collider other)
     {
-        
+
         if (other.CompareTag("Player"))
         {
             PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
                 // Causar 10 puntos de daño al jugador
-                playerHealth.TakeDamage(40f);
+                playerHealth.TakeDamage(100f);
             }
 
             // Destruir el enemigo
-            DestroyEnemyServerRPC();
+            //DestroyEnemyServerRPC();
         }
     }
 
@@ -90,5 +92,4 @@ public class EnemyDetection : NetworkBehaviour
     {
         DestroyEnemyClientRPC();
     }
-
 }

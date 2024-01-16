@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class BoxTrapActivator : MonoBehaviour, IInteractable
+public class BoxTrapActivator : NetworkBehaviour, IInteractable
 {
     [SerializeField] private GameObject CaptureBox;
     private bool TrapUp;
@@ -20,10 +21,16 @@ public class BoxTrapActivator : MonoBehaviour, IInteractable
 
     }
 
-    public void Interact()
+    [ServerRpc(RequireOwnership = false)]
+    private void InteractServerRPC()
     {
         Debug.Log("Interacted with Capture Box");
         TrapUp = !TrapUp;
         CaptureBox.GetComponent<Animator>().SetBool("IsActive", TrapUp);
+    }
+
+    public void Interact()
+    {
+        InteractServerRPC();
     }
 }

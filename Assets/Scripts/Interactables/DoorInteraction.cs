@@ -22,7 +22,7 @@ public class DoorInteraction : NetworkBehaviour, IInteractable
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void InteractServerRPC()
+    private void InteractServerRPC()
     {
         Debug.Log("Interacted with Door");
         doorOpen = !doorOpen;
