@@ -209,12 +209,17 @@ PrefabInstance:
     - target: {fileID: 5333427224255358272, guid: 4e3d059e1f3632a409e1f9a204ef2db6,
         type: 3}
       propertyPath: MoveSpeed
-      value: 4
+      value: 6.4
       objectReference: {fileID: 0}
     - target: {fileID: 5333427224255358272, guid: 4e3d059e1f3632a409e1f9a204ef2db6,
         type: 3}
       propertyPath: JumpHeight
       value: 2.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5333427224255358272, guid: 4e3d059e1f3632a409e1f9a204ef2db6,
+        type: 3}
+      propertyPath: SprintSpeed
+      value: 12.7
       objectReference: {fileID: 0}
     - target: {fileID: 6206744341646888724, guid: 4e3d059e1f3632a409e1f9a204ef2db6,
         type: 3}
