@@ -1669,7 +1669,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64.6
+  m_fontSize: 37.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -28150,7 +28150,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 0a6c37811deec464395644d05ce1f859, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: c23368194fb153e42ac7318bb405cfd1, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1001 &1979352518
 PrefabInstance:
