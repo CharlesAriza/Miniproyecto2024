@@ -10228,7 +10228,7 @@ PrefabInstance:
     - target: {fileID: 4962426431491133161, guid: 5379e4a44cefc9e45a8bced7521b8266,
         type: 3}
       propertyPath: maxHealth
-      value: 20
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6114087771231082871, guid: 5379e4a44cefc9e45a8bced7521b8266,
         type: 3}
@@ -12496,7 +12496,7 @@ PrefabInstance:
     - target: {fileID: 7278335051243571938, guid: 6c3727fbe6c73a84ba856598300a02c3,
         type: 3}
       propertyPath: NextLevel
-      value: Level_2
+      value: Level_1
       objectReference: {fileID: 0}
     - target: {fileID: 7278335051243571938, guid: 6c3727fbe6c73a84ba856598300a02c3,
         type: 3}
@@ -13176,7 +13176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d9952f95b3b4c3d439d72ebc41185438, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e589eddf3426f6a4386e96ac48b25fec, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15099,8 +15099,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37bb2c0cf1bf921478affa14be20d984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentLevel: Level_1
-  NextLevel: Level_1
+  CurrentLevel: Level_3
+  NextLevel: Level_3
 --- !u!1 &1945670487
 GameObject:
   m_ObjectHideFlags: 0
